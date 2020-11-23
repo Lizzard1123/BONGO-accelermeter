@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -44,12 +52,12 @@ int main(){
         cin >> TY;
         cout << getHyp(CX, CY, TX, TY)  << endl;
         TA = toDegrees(angle(CX, CY, TX, TY));
-        cout << toDegrees(angle(CX, CY, TX, TY))  << endl; 
+        cout << toDegrees(angle(CX, CY, TX, TY))  << endl;
         DegreesToTurn = CA - TA;
         cout << "turnng"  << endl;
         cout << DegreesToTurn << endl;
         cout << "Current Angle"  << endl;
-        CA += TA;
+        CA += DegreesToTurn;
         cout << CA  << endl;
         CX = TX;
         CY = TY; 
