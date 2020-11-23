@@ -107,7 +107,7 @@ double angle(double changeX, double changeY){
 
 
 
-int main(){
+int notnot_main(){
     cout << "Enter current X" << endl;
     cin >> CX;
     cout << "Enter current Y"  << endl;
