@@ -2,14 +2,10 @@
 #include <cmath>
 using namespace std;
 const double G = 9.80665;
-double delayTime = 1000;
+const double MTOINCH = 39.37;
+double delayTime = 10;
 double timeinSec = delayTime/1000;
 double Xacceleration, Yacceleration, VX, VY, X, Y;
-double X_starting_offset_in = 5;//offset in inch
-double X_starting_offset = X_starting_offset_in * 39.37;//offset in meter
-double Y_starting_offset_in = 5;//offset in inch
-double Y_starting_offset = Y_starting_offset_in * 39.37;//offset in meter
-
 
 //get new velocity
 double updateV(double Vo, double A, double T){
@@ -24,10 +20,10 @@ double normalize(double acc){
 //Input current accelartion and velocity
 //Outputs change in position
 double update_position(double accel, double velo){
-    return (timeinSec*velo+.5*accel*pow(timeinSec, 2))*39.37;
+    return (timeinSec*velo+.5*accel*pow(timeinSec, 2))*MTOINCH;
 }
   
-int main() {
+int not_main() {
   
   while(true){
     cout << "Enter X acc";
