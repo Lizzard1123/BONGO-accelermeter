@@ -3,7 +3,7 @@
 
 
 
-
+/*
 
 
 #include <iostream>
@@ -74,12 +74,12 @@ double getHyp(double cx,double cy,double tx,double ty){
     return sqrt(pow((tx - cx), 2) + pow((ty - cy), 2));
 }
 
-/*
+
 //to degress from r
 double toDegrees(double r){
     return (r * 180) /  M_PI;
 }
-*/
+
 //true if neg
 bool isNeg(double num){
     return num < 0;
@@ -163,3 +163,5 @@ int notnot_main(){
     }
     return 0;
 }
+
+*/
