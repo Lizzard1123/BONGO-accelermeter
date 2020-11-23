@@ -2,13 +2,15 @@
 #include <cmath>
 using namespace std;
 const double G = 9.80665;
-double delayTime = 1.0;
-double Xacceleration;
-double Yacceleration;
-double VX;
-double VY;
-double X;
-double Y;
+double delayTime = 1000;
+double timeinSec = delayTime/1000;
+double Xacceleration, Yacceleration, VX, VY, X, Y;
+double X_starting_offset_in = 5;//offset in inch
+double X_starting_offset = X_starting_offset_in * 39.37;//offset in meter
+double Y_starting_offset_in = 5;//offset in inch
+double Y_starting_offset = Y_starting_offset_in * 39.37;//offset in meter
+
+
 //get new velocity
 double updateV(double Vo, double A, double T){
     return Vo + A * T;
@@ -19,13 +21,14 @@ double normalize(double acc){
     return acc * G;
 }
 
-double update_position(double accel, double velo){//Input current accelartion and velocity
-  double position;                             //Output change in direction
-  position =  delayTime*velo+.5*accel*delayTime*delayTime;
-  return position;
-  }
+//Input current accelartion and velocity
+//Outputs change in position
+double update_position(double accel, double velo){
+    return (timeinSec*velo+.5*accel*pow(timeinSec, 2))*39.37;
+}
   
 int main() {
+  
   while(true){
     cout << "Enter X acc";
     cin >> Xacceleration;
@@ -38,9 +41,9 @@ int main() {
     //update current Y
     Y +=  update_position(Yacceleration, VY);
     //updates X velocity
-    VX =  updateV(VX, Xacceleration, delayTime);
+    VX =  updateV(VX, Xacceleration, timeinSec);
     //updates Y velocity
-    VY =  updateV(VY, Yacceleration, delayTime);
+    VY =  updateV(VY, Yacceleration, timeinSec);
     //outputs 
     cout << "X acc" << endl;
     cout << Xacceleration << endl;
