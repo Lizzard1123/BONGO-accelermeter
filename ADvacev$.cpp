@@ -58,14 +58,12 @@ double multiplier(int num, double angle, double Dangle){
     switch(num){
         case 1:
             //FL BR
-            mathAngle = movingAngle + 45;
-            currentAngle = currentAngle - 45;
+            mathAngle = movingAngle + 90;
             check = 1;
         break;
         case 2:
             //FR BL
-            mathAngle = movingAngle - 45;
-            currentAngle = currentAngle + 45;
+            mathAngle = movingAngle - 90;
             check = -1;
         break;
     }
@@ -76,7 +74,7 @@ double multiplier(int num, double angle, double Dangle){
     double dist = distance(slope(0,0,slopeLineX, slopeLineY), targetX, targetY);
 
     if(!Left(0,0,slopeLineX, slopeLineY, targetX, targetY) && !Right(0,0,slopeLineX, slopeLineY, targetX, targetY)){
-        return 0;
+        return 1;
     } else if (Left(0,0,slopeLineX, slopeLineY, targetX, targetY)){
         return dist * check;
     } else if (Right(0,0,slopeLineX, slopeLineY, targetX, targetY)){
