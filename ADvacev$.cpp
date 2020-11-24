@@ -31,6 +31,9 @@ double sRound(double num, int decimal){
 //FR and BL sum of x and y calcel where they should and pos means forward neg means reverse 
 //reverse x axis for FL and BR
 double slope(double Xone,double Yone,double Xtwo,double Ytwo){
+    if((Xtwo - Xone) == 0){
+        return 0;
+    }
     return (Ytwo - Yone) / (Xtwo - Xone);
 }
 
@@ -48,29 +51,24 @@ double distance(double thisSlope, double PX, double PY){
 }
 
 double multiplier(int num, double angle, double Dangle){
-    double x = sin(angle*M_PI/180);
-    double y = cos(angle*M_PI/180);
-    /*
-    double scale = (x >= y)? x : y;
-    x /= scale;
-    y /= scale;
-    */
     double movingAngle = Dangle;
     double mathAngle;
+    double currentAngle = angle;
     int check;
     switch(num){
         case 1:
             //FL BR
             mathAngle = movingAngle + 45;
+            currentAngle = currentAngle - 45;
             check = 1;
         break;
         case 2:
             //FR BL
             mathAngle = movingAngle - 45;
+            currentAngle = currentAngle + 45;
             check = -1;
         break;
     }
-    double currentAngle = angle;
     double slopeLineX = sin(mathAngle*M_PI/180);
     double slopeLineY = cos(mathAngle*M_PI/180);
     double targetX = sin(currentAngle*M_PI/180);
@@ -78,11 +76,11 @@ double multiplier(int num, double angle, double Dangle){
     double dist = distance(slope(0,0,slopeLineX, slopeLineY), targetX, targetY);
 
     if(!Left(0,0,slopeLineX, slopeLineY, targetX, targetY) && !Right(0,0,slopeLineX, slopeLineY, targetX, targetY)){
-        return 1;
+        return 0;
     } else if (Left(0,0,slopeLineX, slopeLineY, targetX, targetY)){
-        return -dist * check;
-    } else if (Right(0,0,slopeLineX, slopeLineY, targetX, targetY)){
         return dist * check;
+    } else if (Right(0,0,slopeLineX, slopeLineY, targetX, targetY)){
+        return -dist * check;
     } 
     return 0;
 }
