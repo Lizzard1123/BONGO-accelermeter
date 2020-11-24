@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -81,6 +81,20 @@ double getYcomponet(double angle, double speed){
     return cos(angle*M_PI/180)/total * speed;
 }
 
+double multiplierM(double angle){
+    double x = sin(angle*M_PI/180);
+    double y = cos(angle*M_PI/180);
+    double scale = (x >= y)? x : y;
+    x /= scale;
+    y /= scale;
+    return y + x;
+}
+
+double multiplierX(double angle){
+    double total = sin(angle*M_PI/180) + cos(angle*M_PI/180);
+    return cos(angle*M_PI/180)/total;
+}
+
 //input angle and speed
 //speed is controlled by PID 
 int main(){
@@ -90,10 +104,10 @@ int main(){
     cin >> Dangle;
     cout << "speed : ";
     cin >> speed;
-    FL = sRound(multiplier(FLnum,angle) * getYcomponet(Dangle, speed) + multiplier(FLnum,angle) * getXcomponet(Dangle, speed), 3);
-    FR = sRound(multiplier(FRnum,angle) * getYcomponet(Dangle, speed) - multiplier(FLnum,angle) * getXcomponet(Dangle, speed), 3);
-    BL = sRound(multiplier(BLnum,angle) * getYcomponet(Dangle, speed) - multiplier(FLnum,angle) * getXcomponet(Dangle, speed), 3);
-    BR = sRound(multiplier(BRnum,angle) * getYcomponet(Dangle, speed) + multiplier(FLnum,angle) * getXcomponet(Dangle, speed), 3);
+    FL = sRound((multiplier(FLnum,angle) + multiplierM(angle)/2) * speed, 3);
+    FR = sRound((multiplier(FRnum,angle) - multiplierM(angle)/2) * speed, 3);
+    BL = sRound((multiplier(BLnum,angle) - multiplierM(angle)/2) * speed, 3);
+    BR = sRound((multiplier(BRnum,angle) + multiplierM(angle)/2) * speed, 3);
     double under = greatest(fabs(FL), fabs(FR), fabs(BL), fabs(BR))/100;
     cout << "new" << endl;
     cout << under << endl;
@@ -107,3 +121,4 @@ int main(){
     cout << sRound((BR)/under, 5) << endl;
     return 0;
 }
+*/

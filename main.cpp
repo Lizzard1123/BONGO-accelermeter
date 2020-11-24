@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -56,3 +57,4 @@ int not_main() {
   }
     return 0;
 }
+*/
