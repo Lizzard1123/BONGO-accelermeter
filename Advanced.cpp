@@ -13,6 +13,7 @@ double BR;
 
 double speed;
 double angle;
+double Dangle;
 
 //to degress from r
 double toDegrees(double r){
@@ -31,13 +32,16 @@ double sRound(double num, int decimal){
 double multiplier(int num, double angle){
     double x = sin(angle*M_PI/180);
     double y = cos(angle*M_PI/180);
+    double scale = (x >= y)? x : y;
+    x /= scale;
+    y /= scale;
     switch(num){
         case 1:
             x *= -1;
-            return y + x;
+            return (y + x);
         break;
         case 2:
-            return y + x;
+            return (y + x);
         break;
     }
     //just in case
@@ -66,25 +70,37 @@ double greatest(double FL, double FR, double BL, double BR){
     }
 }
 
+double getXcomponet(double angle, double speed){
+    return sin(angle*M_PI/180) * speed;
+}
+
+double getYcomponet(double angle, double speed){
+    return cos(angle*M_PI/180) * speed;
+}
+
 //input angle and speed
 //speed is controlled by PID 
 int main(){
+    cout << "C angle : ";
     cin >> angle;
+    cout << "D angle : ";
+    cin >> Dangle;
+    cout << "speed : ";
     cin >> speed;
-    FL = sRound(multiplier(FLnum,angle) * speed, 3);
-    FR = sRound(multiplier(FRnum,angle) * speed, 3);
-    BL = sRound(multiplier(BLnum,angle) * speed, 3);
-    BR = sRound(multiplier(BRnum,angle) * speed, 3);
+    FL = sRound(multiplier(FLnum,angle) * getYcomponet(Dangle, speed) + multiplier(FLnum,angle) * getXcomponet(Dangle, speed), 3);
+    FR = sRound(multiplier(FRnum,angle) * getYcomponet(Dangle, speed) - multiplier(FLnum,angle) * getXcomponet(Dangle, speed), 3);
+    BL = sRound(multiplier(BLnum,angle) * getYcomponet(Dangle, speed) - multiplier(FLnum,angle) * getXcomponet(Dangle, speed), 3);
+    BR = sRound(multiplier(BRnum,angle) * getYcomponet(Dangle, speed) + multiplier(FLnum,angle) * getXcomponet(Dangle, speed), 3);
     double under = greatest(fabs(FL), fabs(FR), fabs(BL), fabs(BR))/100;
     cout << "new" << endl;
     cout << under << endl;
     cout << "FL ";
-    cout << (FL)/under << endl;
+    cout << sRound((FL)/under, 5) << endl;
     cout << "FR ";
-    cout << (FR)/under << endl;
+    cout << sRound((FR)/under, 5) << endl;
     cout << "BL ";
-    cout << (BL)/under << endl;
+    cout << sRound((BL)/under, 5) << endl;
     cout << "BR ";
-    cout << (BR)/under << endl;
+    cout << sRound((BR)/under, 5) << endl;
     return 0;
 }
