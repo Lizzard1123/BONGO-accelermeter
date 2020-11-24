@@ -55,24 +55,35 @@ double multiplier(int num, double angle, double Dangle){
     x /= scale;
     y /= scale;
     */
+    double movingAngle = Dangle;
+    double mathAngle;
+    int check;
     switch(num){
         case 1:
             //FL BR
-            double currentAngle = angle;
-            double movingAngle = Dangle;
-            double mathAngle = movingAngle + 45;
-            double slopeLineX = sin(mathAngle*M_PI/180);
-            double slopeLineY = cos(mathAngle*M_PI/180);
-            double targetX = sin(movingAngle*M_PI/180);
-            double targetY = cos(movingAngle*M_PI/180);
-            double dist = distance(0,0,slopeLineX, slopeLineY, targetX, targetY);
+            mathAngle = movingAngle + 45;
+            check = 1;
         break;
         case 2:
             //FR BL
-
+            mathAngle = movingAngle - 45;
+            check = -1;
         break;
     }
-    //just in case
+    double currentAngle = angle;
+    double slopeLineX = sin(mathAngle*M_PI/180);
+    double slopeLineY = cos(mathAngle*M_PI/180);
+    double targetX = sin(currentAngle*M_PI/180);
+    double targetY = cos(currentAngle*M_PI/180);
+    double dist = distance(slope(0,0,slopeLineX, slopeLineY), targetX, targetY);
+
+    if(!Left(0,0,slopeLineX, slopeLineY, targetX, targetY) && !Right(0,0,slopeLineX, slopeLineY, targetX, targetY)){
+        return 1;
+    } else if (Left(0,0,slopeLineX, slopeLineY, targetX, targetY)){
+        return -dist * check;
+    } else if (Right(0,0,slopeLineX, slopeLineY, targetX, targetY)){
+        return dist * check;
+    } 
     return 0;
 }
 

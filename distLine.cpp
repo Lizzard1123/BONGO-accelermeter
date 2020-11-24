@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -24,3 +25,4 @@ int main(){
     cout << fabs((-thisSlope * PX + PY)) / sqrt(1 + pow(thisSlope,2));
     return 0;
 }
+*/
